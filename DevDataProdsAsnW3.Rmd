@@ -1,0 +1,27 @@
+---
+title: "DevDataProdsAsnW3"
+author: "bjpotrat"
+date: "6/26/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Plotly Demo `r format(Sys.time(), "%H:%M %b %d, %Y")`.
+
+```{r loaddata, echo=FALSE}
+df <- read.csv('playdataxyz.csv')
+```
+
+```{r plotly, echo=FALSE, message=FALSE}
+library(plotly)
+my_plot<-plot_ly(df, x=~Apex.X, y=~Apex.Y, z=~Apex.Z-53.5, name="Apex", marker = list(size = 2, color = 'blue')) %>% add_markers() %>%
+  add_markers(df, x=~Boom.X, y=~Boom.Y, z=~Boom.Z-53.5, name="Boom", marker = list(size = 2, color = 'red')) %>%
+  add_markers(df, x=~Slew.X, y=~Slew.Y, z=~Slew.Z, name="Slew", marker = list(size = 2, color = 'black')) %>%
+  add_markers(df, x=~Luff.X, y=~Luff.Y, z=~Luff.Z, name="Luff", marker = list(size = 2, color = 'green')) %>%
+  layout(scene = list(xaxis = list(title = 'X'), yaxis = list(title = 'Y'), zaxis = list(title = 'Z')))
+
+my_plot
+```

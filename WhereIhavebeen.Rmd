@@ -1,0 +1,59 @@
+---
+title: "Where I have been"
+author: "bjpotrat"
+date: "6/24/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Where I have been as of `r format(Sys.time(), "%H:%M %b %d, %Y")`.
+
+```{r LoadData, echo=FALSE}
+Lived<-read.csv('WhereILived.csv')
+Worked <-read.csv('WhereIWorked.csv')
+Traveled <-read.csv('WhereITraveled.csv')
+```
+
+```{r Make Map, echo=FALSE}
+library(crayon)
+library(leaflet)
+my_map <- leaflet() %>% addTiles()
+```
+
+```{r Where I have lived, echo=FALSE}
+for(i in 1:length(Lived$Number))
+{
+  my_map <- my_map %>% addCircleMarkers(lng=as.numeric(Lived$Longitude[i]), 
+                                        lat=as.numeric(Lived$Latitude[i]), 
+                                        radius=2, color = c("blue"), 
+                                        popup = as.character(Lived$'Number'[i]) %+% ' ' %+% as.character(Lived$'Label'[i]))
+}
+```   
+
+```{r Where I have traveled, echo=FALSE}
+for(i in 1:length(Traveled$Number))
+{
+  my_map <- my_map %>% addCircleMarkers(lng=as.numeric(Traveled$Longitude[i]), 
+                                        lat=as.numeric(Traveled$Latitude[i]), 
+                                        radius=2, color = c("green"), 
+                                        popup = as.character(Traveled$'Number'[i]) %+% ' ' %+% as.character(Traveled$'Label'[i]))
+}
+```
+
+```{r Where I have worked, echo=FALSE}
+for(i in 1:length(Worked$Number))
+{
+  my_map <- my_map %>% addCircleMarkers(lng=as.numeric(Worked$Longitude[i]), 
+                                        lat=as.numeric(Worked$Latitude[i]), 
+                                        radius=2, color = c("red"), 
+                                        popup = as.character(Worked$'Number'[i]) %+% ' ' %+% as.character(Worked$'Label'[i]))
+}
+```
+
+```{r Final Map, echo=FALSE}
+my_map <- my_map %>% addLegend(position = "bottomleft", colors = c("blue","green","red"), labels = c("Lived","Traveled","Worked"))
+my_map
+```

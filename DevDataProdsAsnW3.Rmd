@@ -1,15 +1,15 @@
 ---
-title: "DevDataProdsAsnW3"
-author: "bjpotrat"
-date: "6/26/2019"
-output: html_document
+title: Plotly Demo in Markup Presentation
+author: bjpotrat
+output: ioslides_presentation
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
-Plotly Demo `r format(Sys.time(), "%H:%M %b %d, %Y")`.
+## Plotly
+TimeStamp: `r format(Sys.time(), "%H:%M %b %d, %Y")`
 
 ```{r loaddata, echo=FALSE}
 df <- read.csv('playdataxyz.csv')
